@@ -5,6 +5,7 @@ import java.util.LinkedList;
 public class Bfs extends Graph{
 	
 	private static Queue<int[]> bfsQueue = new LinkedList<>();
+	int[][] parent = new int[labyrinth.noOfSideVertices][labyrinth.noOfSideVertices];
 	
 	public void bfs(Labyrinth labyrinth){
 		bfsQueue.add(labyrinth.initialPosition);
