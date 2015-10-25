@@ -34,7 +34,7 @@ public abstract class Graph{
 	 * depth first search(dfs), breadth first search(bfs)(uninformed search strategies)
 	 * and A*(informed search strategy).
 	 */
-	public abstract boolean agentMoving(int[] currentPosition);
+	public abstract boolean agentMoving();
 	
 	/**
 	 * Initializes the class' protected fields.

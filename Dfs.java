@@ -1,13 +1,13 @@
 /**
- * The .... class 
+ * A class to implement the depth first search algorithm in order to represent the agent's
+ * move through the map from the initial to the final vertex.
+ * The code can be applied ONLY to square 2-dimensional maps
  * 
- * In addition, it contains the inner static class used to represent the map in which
- * the agent moves.
- * The code can be applied ONLY to square 2 dimensional maps
  * @author thanskourtan
  *
  */
 public class Dfs extends Graph{
+	protected static int timePassed;
 	
 	/**
 	 * Calls the constructor of the superclass passing the number of Side vertices as parameter.
@@ -16,8 +16,6 @@ public class Dfs extends Graph{
 	public Dfs(int noOfSideVertices) {
 		super(noOfSideVertices);
 	}
-
-	protected static int timePassed;
 	
 	/**
 	 * Overloaded method that allows the user to pass only the labyrinth object as argument 
