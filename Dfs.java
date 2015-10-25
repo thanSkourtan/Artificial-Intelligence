@@ -107,8 +107,25 @@ public class Dfs extends Graph{
 	 */
 	public static void main(String[] args){
 
+	
+		/*Dfs graph= new Dfs(5);
+		
+		graph.addObstacle(0,3);
+		graph.addObstacle(2,1);
+		graph.addObstacle(2,2);
+		graph.addObstacle(3,2);
+		graph.addObstacle(4,1);
+		graph.addObstacle(4,2);
+		
+		graph.setInitialPosition(3,0);
+		graph.setFinalPosition(3,3);
+
+	
+		graph.printInitialGraph();
+
+		graph.agentMoving();*/
 		//declare and initialize a labyrinth
-		Dfs graph= new Dfs(5);
+		Dfs graph= new Dfs(15);
 		//set obstacles
 		graph.addObstacle(0,3);
 		graph.addObstacle(2,1);
@@ -116,11 +133,16 @@ public class Dfs extends Graph{
 		graph.addObstacle(3,2);
 		graph.addObstacle(4,1);
 		graph.addObstacle(4,2);
-		//set initial and final position
-		graph.setInitialPosition(3,0);
-		graph.setFinalPosition(3,3);
+		graph.addObstacle(8,3);
+		graph.addObstacle(8,13);
+		graph.addObstacle(9,1);
+		graph.addObstacle(12,0);
+		graph.addObstacle(11,8);
+		graph.addObstacle(14,3);
 
-		//Graph graph =new Graph();
+		graph.setInitialPosition(3,0);
+		graph.setFinalPosition(9,10);
+
 		graph.printInitialGraph();
 
 		graph.agentMoving();
