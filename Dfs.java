@@ -125,7 +125,7 @@ public class Dfs extends Graph{
 
 		graph.agentMoving();*/
 		//declare and initialize a labyrinth
-		Dfs graph= new Dfs(15);
+		Dfs graph= new Dfs(25);
 		//set obstacles
 		graph.addObstacle(0,3);
 		graph.addObstacle(2,1);

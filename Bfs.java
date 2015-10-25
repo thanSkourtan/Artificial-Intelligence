@@ -96,6 +96,7 @@ public class Bfs extends Graph{
 	@Override
 	public boolean agentMoving() {
 		bfsQueue.add(initialPosition);
+		visitedList.add(initialPosition);
 		while(!bfsQueue.isEmpty()){
 			int [] currentPosition= bfsQueue.remove();
 			//condition that ends the searching
@@ -109,7 +110,7 @@ public class Bfs extends Graph{
 				if(constraints(currentPosition[0] + xJump,currentPosition[1] + yJump)){
 					int[] newPosition = new int[]{currentPosition[0] + xJump,currentPosition[1] + yJump};	
 					bfsQueue.add(newPosition);
-					visitedList.add(currentPosition);
+					visitedList.add(newPosition);
 					parent[newPosition[0]][newPosition[1]] = currentPosition;  //we go down up to the 2nd level only as newPosition is an array
 				}
 			}
@@ -124,7 +125,7 @@ public class Bfs extends Graph{
 	 */
 	public static void main(String[] args){
 		//declare and initialize a labyrinth
-		Bfs graph= new Bfs(15);
+		Bfs graph= new Bfs(25);
 				//set obstacles
 		graph.addObstacle(0,3);
 		graph.addObstacle(2,1);
@@ -140,7 +141,7 @@ public class Bfs extends Graph{
 		graph.addObstacle(14,3);
 		
 		graph.setInitialPosition(3,0);
-		graph.setFinalPosition(9,10);
+		graph.setFinalPosition(15,20);
 		
 		graph.printInitialGraph();
 		
