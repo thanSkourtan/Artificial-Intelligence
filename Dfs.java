@@ -71,27 +71,35 @@ public class Dfs extends Graph{
 		for(int i = 0; i< time.length;i++){
 			for(int j = 0; j<time[i].length;j++){
 				if(adjMatrix[i][j]==0){           //labyrinth.time[i][j] and labyrinth.adjMatrix[i][j] are the same vertex
-					System.out.print("###   ");
+					System.out.print("###     ");
 					continue;
 				}else{
 					//prints the entry time
 					if(time[i][j][0] == 0) System.out.print("_/");
 					else System.out.print(time[i][j][0] +"/");
 					//prints the exit time + the space between vertices so that the map is aligned for values up to 99
-					if(time[i][j][1]==0) {
+					if(time[i][j][1]==0) {              // case where there is no exit time
 						if(time[i][j][0]<10){
-							System.out.print("_   ");
-						}else{
-							System.out.print("_  ");
+							System.out.print("_     ");  // 5 blank spaces
+						}else if(time[i][j][0]<100){
+							System.out.print("_    ");   //4 blank spaces
+						}else if(time[i][j][0]<1000){
+							System.out.print("_   ");    //3 blank spaces 
 						}
 					}
-					else { 
-						if(time[i][j][0]<9 && time[i][j][1]<9){
+					else {                               //case where there is exit time
+						if(time[i][j][0]<10 && time[i][j][1]<10){ //if all times are one digit
+							System.out.print(time[i][j][1] +"     ");
+						}else if(time[i][j][0]<100 && time[i][j][1]<100){ //if all time values are two digit
 							System.out.print(time[i][j][1] +"   ");
-						}else if(time[i][j][0]>9 && time[i][j][1]>9){
+						}else if(time[i][j][0]<1000 && time[i][j][1]<1000){ //if all time values are three digit
 							System.out.print(time[i][j][1] +" ");
-						}else if(time[i][j][0]>9 || time[i][j][1]>9){
+						}else if((time[i][j][0]<100 && time[i][j][1]<10) || (time[i][j][0]<10 && time[i][j][1]<100) ){ //if one time value is one digit and one two digit
+							System.out.print(time[i][j][1] +"    ");
+						}else if((time[i][j][0]<10 && time[i][j][1]<1000) || (time[i][j][0]<1000 && time[i][j][1]<10)){//if one time value is 3 digit and one 2 digit
 							System.out.print(time[i][j][1] +"  ");
+						}else if((time[i][j][0]<100 && time[i][j][1]<1000) || (time[i][j][0]<1000 && time[i][j][1]<100)){ //if one time value is 3 digit and one 1 digit
+							System.out.print(time[i][j][1] +"   ");
 						}
 					}
 				}
@@ -99,54 +107,4 @@ public class Dfs extends Graph{
 			System.out.println();
 		}
 	}
-
-	/**
-	 * Tests the program.
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args){
-
-	
-		/*Dfs graph= new Dfs(5);
-		
-		graph.addObstacle(0,3);
-		graph.addObstacle(2,1);
-		graph.addObstacle(2,2);
-		graph.addObstacle(3,2);
-		graph.addObstacle(4,1);
-		graph.addObstacle(4,2);
-		
-		graph.setInitialPosition(3,0);
-		graph.setFinalPosition(3,3);
-
-	
-		graph.printInitialGraph();
-
-		graph.agentMoving();*/
-		//declare and initialize a labyrinth
-		Dfs graph= new Dfs(25);
-		//set obstacles
-		graph.addObstacle(0,3);
-		graph.addObstacle(2,1);
-		graph.addObstacle(2,2);
-		graph.addObstacle(3,2);
-		graph.addObstacle(4,1);
-		graph.addObstacle(4,2);
-		graph.addObstacle(8,3);
-		graph.addObstacle(8,13);
-		graph.addObstacle(9,1);
-		graph.addObstacle(12,0);
-		graph.addObstacle(11,8);
-		graph.addObstacle(14,3);
-
-		graph.setInitialPosition(3,0);
-		graph.setFinalPosition(9,10);
-
-		graph.printInitialGraph();
-
-		graph.agentMoving();
-
-	}
-
 }

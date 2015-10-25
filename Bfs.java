@@ -53,7 +53,7 @@ public class Bfs extends Graph{
 			path.add(parent[currentPosition[0]][currentPosition[1]]);
 			currentPosition=parent[currentPosition[0]][currentPosition[1]];
 		}
-		System.out.println("The final labyrinth after the agent's walk with the entry/exit times is: ");
+		System.out.println("The final labyrinth including the agent's shortest path is: ");
 		int l = adjMatrix.length;
 		boolean printed =false;
 		for(int i = 0; i < l*l;i++){
@@ -117,42 +117,4 @@ public class Bfs extends Graph{
 		}	
 		return false;
 	}
-
-	/**
-	 * Tests the program.
-	 * 
-	 * @param args
-	 */
-	public static void main(String[] args){
-		//declare and initialize a labyrinth
-		Bfs graph= new Bfs(25);
-				//set obstacles
-		graph.addObstacle(0,3);
-		graph.addObstacle(2,1);
-		graph.addObstacle(2,2);
-		graph.addObstacle(3,2);
-		graph.addObstacle(4,1);
-		graph.addObstacle(4,2);
-		graph.addObstacle(8,3);
-		graph.addObstacle(8,13);
-		graph.addObstacle(9,1);
-		graph.addObstacle(12,0);
-		graph.addObstacle(11,8);
-		graph.addObstacle(14,3);
-		
-		graph.setInitialPosition(3,0);
-		graph.setFinalPosition(15,20);
-		
-		graph.printInitialGraph();
-		
-		graph.agentMoving();
-	}
-
-	
-
-
-
-
-
-
 }
