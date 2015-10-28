@@ -3,8 +3,7 @@ import java.util.Comparator;
 import java.util.PriorityQueue;
 
 
-public class Astar extends Graph{
-	int[][][] parent = new int[noOfSideVertices][noOfSideVertices][2];
+public class Astar extends Bfs{
 	Sorting sorting =new Sorting();
 	Queue<int[]> aStarQueue = new PriorityQueue<>(sorting);
 	int[][] distances = new int[noOfSideVertices][noOfSideVertices];
@@ -18,14 +17,7 @@ public class Astar extends Graph{
 	}
 
 	@Override
-	public void printFinalGraph() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public boolean agentMoving() {
-		
 		for(int i = 0;i<noOfSideVertices*noOfSideVertices;i++){
 			distances[i/noOfSideVertices][i%noOfSideVertices]=Integer.MAX_VALUE;
 		}
@@ -83,24 +75,4 @@ public class Astar extends Graph{
 			return heuristic(one,finalPosition) - heuristic(two,finalPosition);
 		}
 	}
-	
-	public static void main(String[] args){
-		//declare and initialize a labyrinth
-		Astar labyrinth = new Astar(5);
-		//set obstacles
-		labyrinth.addObstacle(0,3);
-		labyrinth.addObstacle(2,1);
-		labyrinth.addObstacle(2,2);
-		labyrinth.addObstacle(3,2);
-		labyrinth.addObstacle(4,1);
-		labyrinth.addObstacle(4,2);
-		//set initial and final position
-		labyrinth.setInitialPosition(3,0);
-		labyrinth.setFinalPosition(3,3);
-		labyrinth.printInitialGraph();
-		
-		labyrinth.agentMoving();
-		
-	}
-	
 }

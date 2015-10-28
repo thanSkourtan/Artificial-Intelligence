@@ -8,13 +8,33 @@ public class Test {
 	 * @param args
 	 */
 	public static void main(String[] args){
+		/*
+		//declare and initialize a labyrinth
+		Astar labyrinth = new Astar(5);
+		//set obstacles
+		labyrinth.addObstacle(0,3);
+		labyrinth.addObstacle(2,1);
+		labyrinth.addObstacle(2,2);
+		labyrinth.addObstacle(3,2);
+		labyrinth.addObstacle(4,1);
+		labyrinth.addObstacle(4,2);
+		//set initial and final position
+		labyrinth.setInitialPosition(3,0);
+		labyrinth.setFinalPosition(3,3);
+		labyrinth.printInitialGraph();
+		
+		labyrinth.agentMoving();
+		
+		
+	*/
 		Random rand = new Random();
 		//declare and initialize a labyrinth
 		int noOfSquares = 25;
 		//Bfs graph= new Bfs(noOfSquares);
-		Dfs graph = new Dfs(noOfSquares);
+		//Dfs graph = new Dfs(noOfSquares);
+		Astar graph = new Astar(noOfSquares);
 		//set obstacles
-		for(int i = 0; i< (noOfSquares*noOfSquares)/3;i++){
+		for(int i = 0; i< (noOfSquares*noOfSquares)/4;i++){
 			graph.addObstacle(rand.nextInt(noOfSquares),rand.nextInt(noOfSquares));
 		}
 		int num1=0;
