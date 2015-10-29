@@ -1,35 +1,41 @@
 import java.util.Random;
 
+/**
+ * The Test class is the entry point of the application. 
+ * 
+ * @author thanskourtan
+ */
 public class Test {
 	
 	/**
 	 * Instantiates and returns an object of type Graph based on the provided arguments. 
+	 * Also provides validation, because if the arguments are not the proper ones it returns
+	 * a null object which causes the application to exit.
 	 * 
 	 * @param choice the algorithm the user wants to run.
 	 * @param type either the default case or the number of side vertices of the graph.
-	 * @return
+	 * @return an object of type Graph which references a Dfs, or Bfs, of Astar object according 
+	 *         to the user's input. The object is null in case the input is not the proper one.
 	 */
 	private static Graph defineGraph(String choice, String type) {
-		if(choice.equals("dfs")){
-			if(type.equals("default")){
-				return new Dfs(5);	
-			}else if(type.matches("\\d")){
-				return new Dfs(Integer.parseInt(type));
-			}
-		}else if(choice.equals("bfs")){
-			if(type.equals("default")){
-				return new Bfs(5);	
-			}else if(type.matches("\\d")){
-				return new Bfs(Integer.parseInt(type));
-			}
-		}else if(choice.equals("Astar")){
-			if(type.equals("default")){
-				return new Astar(5);	
-			}else if(type.matches("\\d+")){
-				return new Astar(Integer.parseInt(type));
-			}
+		int noOfSideVertices = 0;
+		if(type.equals("default")){
+			noOfSideVertices = 5;
+		}else if(type.matches("\\d+")){
+			noOfSideVertices = Integer.parseInt(type);
+		}else{
+			return null;
 		}
-		return null;
+		
+		switch(choice){
+			case "dfs":
+			return new Dfs(noOfSideVertices);
+			case "bfs":
+			return new Bfs(noOfSideVertices);
+			case "Astar":
+			return new Astar(noOfSideVertices);
+			default: return null;
+		}
 	}
 
 	/**
@@ -44,26 +50,21 @@ public class Test {
 			return;
 		}
 		if(args[1].equals("default")){
-			//set obstacles
+			//default scenario
 			graph.addObstacle(0,3);
 			graph.addObstacle(2,1);
 			graph.addObstacle(2,2);
 			graph.addObstacle(3,2);
 			graph.addObstacle(4,1);
 			graph.addObstacle(4,2);
-				//set initial and final position
 			graph.setInitialPosition(3,0);
 			graph.setFinalPosition(3,3);
-				//traverse and print
 			graph.printInitialGraph();
 			graph.agentMoving();	
 		}else{
-	//random case scenario
-	
-			
+			//random case scenario
 			Random rand = new Random();
-			//declare and initialize a labyrinth
-			int noOfSquares = Integer.parseInt(args[1]);
+			int noOfSquares = graph.adjMatrix.length;
 			//set obstacles
 			for(int i = 0; i< (noOfSquares*noOfSquares)/4;i++){
 				graph.addObstacle(rand.nextInt(noOfSquares),rand.nextInt(noOfSquares));
@@ -77,13 +78,10 @@ public class Test {
 				num2=rand.nextInt(noOfSquares);
 				num3=rand.nextInt(noOfSquares);
 				num4=rand.nextInt(noOfSquares);
-			}while(num1==num3 && num2 ==num4); //initial position should be different than final
+			}while(num1==num3 && num2 ==num4); //initial position should be different than the final one
 			graph.setInitialPosition(num1,num2);
 			graph.setFinalPosition(num3,num4);
-			
-			
 			graph.printInitialGraph();
-
 			graph.agentMoving();
 		}
 	}

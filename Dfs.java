@@ -1,40 +1,38 @@
 /**
  * A class to implement the depth first search algorithm in order to represent the agent's
- * move through the map from the initial to the final vertex.
- * The code can be applied ONLY to square 2-dimensional maps
+ * move through the map from the initial to the final vertex. 
+ * For an overview of the algorithm, see Introduction to Algorithms, CLRS, The MIT Press.
  * 
  * @author thanskourtan
- *
  */
 public class Dfs extends Graph{
 	protected static int timePassed;
+	/**Cache the entry and exit time for each vertex.*/
+	protected int[][][] time;
 	
 	/**
 	 * Calls the constructor of the superclass passing the number of Side vertices as parameter.
+	 * Also, initializes the time array.
 	 * @param noOfSideVertices
 	 */
 	public Dfs(int noOfSideVertices) {
 		super(noOfSideVertices);
+		time = new int[noOfSideVertices][noOfSideVertices][2]; //for caching the visiting and leaving time of each vertex
 	}
 	
 	/**
-	 * Overloaded method that allows the user to pass only the labyrinth object as argument 
-	 * and not its initial position. 
-	 * 
-	 * @param labyrinth
-	 * @return
+	 * Overloaded method that allows the testing class not to pass any parameter as argument  
+	 * @return the return value of the overloaded method agentMovint(int[] currentPosition);
 	 */
 	public boolean agentMoving(){
-		agentMoving(initialPosition);
-		return false;
+		return agentMoving(initialPosition);
 	}
 
 	/**
 	 * Implements the depth first search algorithm recursively. The base condition is "when the 
 	 * agent reaches the final position stop".
 	 * 
-	 * @param labyrinth
-	 *        the labyrinth in which the agent is moving.
+	 * @param currentPosition the int array containing the coordinates of each currentPosition
 	 * @return true if the final position is found, false otherwise.
 	 */      
 	public boolean agentMoving(int[] currentPosition){
@@ -60,11 +58,9 @@ public class Dfs extends Graph{
 	}
 
 	/**
-	 * Prints the labyrinth along with the agent's path. The agent's path is represented
+	 * Prints the map along with the agent's path. The agent's path is represented
 	 * by a figure of the form x/y where x represents the entry time and y the exit time
 	 * for each vertex.
-	 * 
-	 * @param labyrinth
 	 */
 	public void printFinalGraph(){
 		System.out.println("The final labyrinth after the agent's walk with the entry/exit times is: ");

@@ -7,12 +7,13 @@ import java.util.ArrayList;
 /**
  * A class implementing the breadth first search algorithm and also providing a method
  * to visualize the selected path into the labyrinth.
+ * For an overview of the algorithm, see Introduction to Algorithms, CLRS, The MIT Press.
  * 
  * @author thanskourtan
- *
  */
 public class Bfs extends Graph{
 	protected static Queue<int[]> bfsQueue = new LinkedList<>();
+	/**Caches the parent vertex of each visited vertex.*/
 	int[][][] parent = new int[noOfSideVertices][noOfSideVertices][2];
 	
 	/**
@@ -21,7 +22,7 @@ public class Bfs extends Graph{
 	 */
 	public Bfs(int noOfSideVertices) {
 		super(noOfSideVertices);
-		for(int i = 0; i < noOfSideVertices;i++){        //initialize all members of the parent array to -1
+		for(int i = 0; i < noOfSideVertices;i++){        
 			for(int j = 0;j<noOfSideVertices;j++){
 				Arrays.fill(parent[i][j],-1);
 			}
@@ -30,15 +31,13 @@ public class Bfs extends Graph{
 	
 	/**
 	 * Overrides the setInitialPositionMethod in order to initialize the parent of the 
-	 * starting vertext to null.
+	 * starting vertex to null.
 	 */
 	@Override
 	public void setInitialPosition(int x, int y) {
 		super.setInitialPosition(x, y);
-		parent[initialPosition[0]][initialPosition[1]] = null; //initialize the parent of starting vertex to null
+		parent[initialPosition[0]][initialPosition[1]] = null;
 	}
-
-
 
 	/**
 	 * Prints the labyrinth along with the agent's path. The agent's path is represented
@@ -92,6 +91,8 @@ public class Bfs extends Graph{
 	 * Implements the breadth first search algorithm to find the path from start to finish. Contrary to 
 	 * the dfs algorithm, the path it finds is the shortest. It includes a variation of the classical bfs
 	 * algorithm as we add a condition to stop traversing the graph when the finishing vertex is discovered.
+	 * 
+	 * @return true if the final position is found, false otherwise.
 	 */
 	@Override
 	public boolean agentMoving() {
@@ -111,7 +112,7 @@ public class Bfs extends Graph{
 					int[] newPosition = new int[]{currentPosition[0] + xJump,currentPosition[1] + yJump};	
 					bfsQueue.add(newPosition);
 					visitedList.add(newPosition);
-					parent[newPosition[0]][newPosition[1]] = currentPosition;  //we go down up to the 2nd level only as newPosition is an array
+					parent[newPosition[0]][newPosition[1]] = currentPosition;  //we go down up to the 2nd level only, as newPosition is an array
 				}
 			}
 		}	
