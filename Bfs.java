@@ -1,8 +1,6 @@
 import java.util.Queue;
 import java.util.LinkedList;
 import java.util.Arrays;
-import java.util.List;
-import java.util.ArrayList;
 
 /**
  * A class implementing the breadth first search algorithm and also providing a method
@@ -12,9 +10,8 @@ import java.util.ArrayList;
  * @author thanskourtan
  */
 public class Bfs extends Graph{
-	protected static Queue<int[]> bfsQueue = new LinkedList<>();
-	/**Caches the parent vertex of each visited vertex.*/
-	int[][][] parent = new int[noOfSideVertices][noOfSideVertices][2];
+	protected Queue<int[]> bfsQueue = new LinkedList<>();
+	protected int[][] distances;
 	
 	/**
 	 * Calls the constructor of the superclass passing the number of Side vertices as parameter.
@@ -27,6 +24,7 @@ public class Bfs extends Graph{
 				Arrays.fill(parent[i][j],-1);
 			}
 		}
+		distances = new int[noOfSideVertices][noOfSideVertices];
 	}
 	
 	/**
@@ -36,55 +34,7 @@ public class Bfs extends Graph{
 	@Override
 	public void setInitialPosition(int x, int y) {
 		super.setInitialPosition(x, y);
-		parent[initialPosition[0]][initialPosition[1]] = null;
-	}
-
-	/**
-	 * Prints the labyrinth along with the agent's path. The agent's path is represented
-	 * by a number indicating the order each vertex was visited.
-	 */
-	@Override
-	public void printFinalGraph() {
-		List<int[]> path = new ArrayList<>();
-		int[] currentPosition = finalPosition;
-		path.add(currentPosition);
-		while(currentPosition!=null){ //since the parent of the starting position is null
-			path.add(parent[currentPosition[0]][currentPosition[1]]);
-			currentPosition=parent[currentPosition[0]][currentPosition[1]];
-		}
-		System.out.println("The final labyrinth including the agent's shortest path is: ");
-		int l = adjMatrix.length;
-		boolean printed =false;
-		for(int i = 0; i < l*l;i++){
-			int x = i/l;
-			int y = i%l;
-			if (y == 0) System.out.println();   //change line
-			int[] temp = new int[]{x,y};   // a temporary array with the dimensions of the current position 
-			int counter = path.size();
-			printed =false;
-			for(int[] anArray: path){
-				counter--;
-				if(anArray!=null  && anArray[0]== temp[0] && anArray[1]== temp[1]){
-					if(counter<10) {
-						System.out.print(counter + "  ");
-					}else if(counter>9){
-						System.out.print(counter + " ");
-					}
-					printed = true;
-					break;
-				}
-			}
-			if(!printed){
-				switch(adjMatrix[x][y]){
-					case 0:
-					System.out.print("#  ");
-					break;
-					case 1:
-					System.out.print("_  ");
-					break;
-				}
-			}
-		}
+		distances[initialPosition[0]][initialPosition[1]]=0;
 	}
 
 	/**
@@ -95,27 +45,58 @@ public class Bfs extends Graph{
 	 * @return true if the final position is found, false otherwise.
 	 */
 	@Override
-	public boolean agentMoving() {
+	public boolean agentMoving(String agentMode) {
 		bfsQueue.add(initialPosition);
 		visitedList.add(initialPosition);
 		while(!bfsQueue.isEmpty()){
 			int [] currentPosition= bfsQueue.remove();
 			//condition that ends the searching
 			if(currentPosition[0] == finalPosition[0] && currentPosition[1] == finalPosition[1]){
+				printDiscoveryTimes();
 				printFinalGraph();
 				return true;
 			}
-			for(int counter = 0, xJump = 1,yJump = 0;counter < 4 ;counter++,
-			    xJump += (counter <= 2) ? -1 : 1, 
-			    yJump += (counter >= 2) ? -1 : 1 ){
-				if(constraints(currentPosition[0] + xJump,currentPosition[1] + yJump)){
-					int[] newPosition = new int[]{currentPosition[0] + xJump,currentPosition[1] + yJump};	
+			for(int[] temp : agentPotentialMoves(agentMode)){
+				if(constraints(currentPosition[0] + temp[0],currentPosition[1] + temp[1])){
+					int[] newPosition = new int[]{currentPosition[0] + temp[0],currentPosition[1] + temp[1]};	
 					bfsQueue.add(newPosition);
+					distances[newPosition[0]][newPosition[1]]= distances[currentPosition[0]][currentPosition[1]] + 1;
 					visitedList.add(newPosition);
 					parent[newPosition[0]][newPosition[1]] = currentPosition;  //we go down up to the 2nd level only, as newPosition is an array
 				}
 			}
 		}	
 		return false;
+	}
+	
+	/**
+	 * Prints the graph along with the discovery times of all vertices.
+	 */
+	@Override
+	public void printDiscoveryTimes() {
+		System.out.println("The graph along with the discovery times is:");
+		int l = distances.length;
+		for(int i = 0;i<l*l;i++){
+			int x = i/l;
+			int y = i%l;
+			if(y%l==0) System.out.println();
+			if(distances[x][y]!=0 && distances[x][y]!=Integer.MAX_VALUE){
+				if(distances[x][y]<10){
+					System.out.print(distances[x][y] + "   ");
+				}else if(distances[x][y]<100){
+					System.out.print(distances[x][y]+"  ");
+				}
+			}else{
+				if(adjMatrix[x][y]==0){
+					System.out.print("#   ");
+				}else if(adjMatrix[x][y]==2){
+					System.out.print("0   ");
+				}else{
+					System.out.print("_   ");
+				}
+			}
+		}
+		System.out.println();
+		System.out.println();
 	}
 }

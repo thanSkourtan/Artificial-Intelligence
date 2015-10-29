@@ -6,9 +6,9 @@
  * @author thanskourtan
  */
 public class Dfs extends Graph{
-	protected static int timePassed;
 	/**Cache the entry and exit time for each vertex.*/
 	protected int[][][] time;
+	protected static int timePassed;
 	
 	/**
 	 * Calls the constructor of the superclass passing the number of Side vertices as parameter.
@@ -18,13 +18,18 @@ public class Dfs extends Graph{
 	public Dfs(int noOfSideVertices) {
 		super(noOfSideVertices);
 		time = new int[noOfSideVertices][noOfSideVertices][2]; //for caching the visiting and leaving time of each vertex
+		parent = new int[noOfSideVertices][noOfSideVertices][2];
+		
 	}
 	
 	/**
-	 * Overloaded method that allows the testing class not to pass any parameter as argument  
+	 * Overloaded method that allows the testing class not to pass any parameter as argument.
+	 * Also, as the agentMoving(int[] currentPosition) method is going to be called recursively,
+	 * we place here the statements that only need to run once.  
 	 * @return the return value of the overloaded method agentMovint(int[] currentPosition);
 	 */
-	public boolean agentMoving(){
+	@Override
+	public boolean agentMoving(String agentMode){
 		return agentMoving(initialPosition);
 	}
 
@@ -37,9 +42,11 @@ public class Dfs extends Graph{
 	 */      
 	public boolean agentMoving(int[] currentPosition){
 		visitedList.add(currentPosition);
+		
 		time[currentPosition[0]][currentPosition[1]][0] =++timePassed;
 		//Base condition
 		if(currentPosition[0] == finalPosition[0] && currentPosition[1] == finalPosition[1]){
+			printDiscoveryTimes();
 			printFinalGraph();
 			return true;
 		}
@@ -48,6 +55,7 @@ public class Dfs extends Graph{
 				yJump += (counter >= 2) ? -1 : 1 ){
 			if(constraints(currentPosition[0]+xJump,currentPosition[1] + yJump)){
 				int[] newPosition = new int[]{currentPosition[0]+xJump,currentPosition[1]+yJump};
+				parent[newPosition[0]][newPosition[1]]=currentPosition;
 				if(agentMoving(newPosition)){
 					return true;
 				}
@@ -56,14 +64,15 @@ public class Dfs extends Graph{
 		time[currentPosition[0]][currentPosition[1]][1]=++timePassed;
 		return false;
 	}
-
+	
 	/**
 	 * Prints the map along with the agent's path. The agent's path is represented
 	 * by a figure of the form x/y where x represents the entry time and y the exit time
 	 * for each vertex.
 	 */
-	public void printFinalGraph(){
-		System.out.println("The final labyrinth after the agent's walk with the entry/exit times is: ");
+	@Override
+	public void printDiscoveryTimes(){
+		System.out.println("The graph with the dfs algorithm's entry/exit times is: ");
 		for(int i = 0; i< time.length;i++){
 			for(int j = 0; j<time[i].length;j++){
 				if(adjMatrix[i][j]==0){           //labyrinth.time[i][j] and labyrinth.adjMatrix[i][j] are the same vertex
@@ -102,5 +111,7 @@ public class Dfs extends Graph{
 			}
 			System.out.println();
 		}
+		System.out.println();
+		System.out.println();
 	}
 }

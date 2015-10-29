@@ -60,12 +60,18 @@ public class Test {
 			graph.setInitialPosition(3,0);
 			graph.setFinalPosition(3,3);
 			graph.printInitialGraph();
-			graph.agentMoving();	
+			
+			if(args.length==2){
+				graph.agentMoving("");
+			}else if(args[2].equals("super")){
+				graph.agentMoving(args[2]);
+			}
 		}else{
 			//random case scenario
 			Random rand = new Random();
 			int noOfSquares = graph.adjMatrix.length;
 			//set obstacles
+			
 			for(int i = 0; i< (noOfSquares*noOfSquares)/4;i++){
 				graph.addObstacle(rand.nextInt(noOfSquares),rand.nextInt(noOfSquares));
 			}
@@ -82,7 +88,11 @@ public class Test {
 			graph.setInitialPosition(num1,num2);
 			graph.setFinalPosition(num3,num4);
 			graph.printInitialGraph();
-			graph.agentMoving();
+			if(args.length==2){
+				graph.agentMoving("");
+			}else if(args[2].equals("super")){
+				graph.agentMoving(args[2]);
+			}
 		}
 	}
 }

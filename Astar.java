@@ -7,13 +7,11 @@ import java.util.PriorityQueue;
  * path into the labyrinth. 
  * For an overview of the algorithm, see http://www.redblobgames.com/pathfinding/a-star/introduction.html
  * 
- * @author thanskourtan
+ * @author thanos - dimitris
  */
 public class Astar extends Bfs{
 	Sorting sorting =new Sorting();
 	Queue<int[]> aStarQueue = new PriorityQueue<>(sorting);
-	/**Caching the distances between the current position and the final position.*/
-	int[][] distances = new int[noOfSideVertices][noOfSideVertices];
 	
 	/**
 	 * Calls the constructor of the superclass passing the number of Side vertices as parameter.
@@ -21,6 +19,10 @@ public class Astar extends Bfs{
 	 */
 	public Astar(int noOfSideVertices) {
 		super(noOfSideVertices);
+		distances = new int[noOfSideVertices][noOfSideVertices];
+		for(int i = 0;i<noOfSideVertices*noOfSideVertices;i++){
+			distances[i/noOfSideVertices][i%noOfSideVertices]=Integer.MAX_VALUE;
+		}
 	}
 	
 	/**
@@ -33,26 +35,28 @@ public class Astar extends Bfs{
 	 * @return true if the final position is found, false otherwise.
 	 */
 	@Override
-	public boolean agentMoving() {
-		for(int i = 0;i<noOfSideVertices*noOfSideVertices;i++){
-			distances[i/noOfSideVertices][i%noOfSideVertices]=Integer.MAX_VALUE;
-		}
-		
+	public boolean agentMoving(String agentMode) {	
+		int currentCost = 0;
 		aStarQueue.add(initialPosition);
 		visitedList.add(initialPosition);
 		while(!aStarQueue.isEmpty()){
 			int[] currentPosition = aStarQueue.remove();
 			if(currentPosition[0]==finalPosition[0] && currentPosition[1]==finalPosition[1]){
+				printDiscoveryTimes();
 				printFinalGraph();
 				return true;
 			}
-			for(int counter = 0, xJump = 1,yJump = 0;counter < 4 ;counter++,
-				    xJump += (counter <= 2) ? -1 : 1, 
-				    yJump += (counter >= 2) ? -1 : 1 ){
-				if(constraints(currentPosition[0] + xJump, currentPosition[1] + yJump)){
-					int[] newPosition = new int[]{currentPosition[0] + xJump,currentPosition[1] + yJump};
-					if(distances[currentPosition[0]][currentPosition[1]] + adjMatrix[newPosition[0]][newPosition[1]] <  distances[newPosition[0]][newPosition[1]]){
-						distances[newPosition[0]][newPosition[1]] =distances[currentPosition[0]][currentPosition[1]] + adjMatrix[newPosition[0]][newPosition[1]];
+			for(int[] temp : agentPotentialMoves(agentMode)){
+				if(constraints(currentPosition[0] + temp[0], currentPosition[1] + temp[1])){
+					int[] newPosition = new int[]{currentPosition[0] + temp[0],currentPosition[1] + temp[1]};
+					//the heuristic is used here to find out if the movement is diagonal. It does not have to do with the algorithm.
+					if(heuristic(currentPosition,newPosition)==2){
+						currentCost = DIAGONALCOST;
+					}else{
+						currentCost = NORMALCOST;
+					}
+					if(distances[currentPosition[0]][currentPosition[1]] + currentCost <  distances[newPosition[0]][newPosition[1]]){
+						distances[newPosition[0]][newPosition[1]] =distances[currentPosition[0]][currentPosition[1]] + currentCost;
 					}
 					aStarQueue.offer(newPosition);
 					visitedList.add(newPosition);
@@ -84,6 +88,7 @@ public class Astar extends Bfs{
 		/**
 		 * (non-Javadoc)
 		 * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
+		 * @return a negative integer, zero, or a positive integer as the first argument is less than, equal to, or greater than the second.
 		 */
 		@Override
 		public int compare(int[] one, int[] two){
