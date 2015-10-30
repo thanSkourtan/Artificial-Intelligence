@@ -8,9 +8,9 @@ import java.util.Random;
 public class Test {
 	
 	/**
-	 * Instantiates and returns an object of type Graph based on the provided arguments. 
-	 * Also provides validation, because if the arguments are not the proper ones it returns
-	 * a null object which causes the application to exit.
+	 * Factory method which Instantiates and returns an object of type Graph based on the provided 
+	 * arguments. Also provides validation, because if the arguments are not the proper ones 
+	 * it returns a null object which causes the application to exit.
 	 * 
 	 * @param choice the algorithm the user wants to run.
 	 * @param type either the default case or the number of side vertices of the graph.
@@ -26,7 +26,6 @@ public class Test {
 		}else{
 			return null;
 		}
-		
 		switch(choice){
 			case "dfs":
 			return new Dfs(noOfSideVertices);
@@ -65,6 +64,10 @@ public class Test {
 				graph.agentMoving("");
 			}else if(args[2].equals("super")){
 				graph.agentMoving(args[2]);
+			}else if(args.length==3 && args[2].equals("ObstaclesOff")){
+				graph.agentMoving("");
+			}else if(args.length==4){
+				graph.agentMoving(args[2]);
 			}
 		}else{
 			//random case scenario
@@ -91,7 +94,11 @@ public class Test {
 			graph.printInitialGraph();
 			if(args.length==2){
 				graph.agentMoving("");
-			}else if(args[2].equals("super")){
+			}else if(args.length==3 && args[2].equals("super")){
+				graph.agentMoving(args[2]);
+			}else if(args.length==3 && args[2].equals("ObstaclesOff")){
+				graph.agentMoving("");
+			}else if(args.length==4){
 				graph.agentMoving(args[2]);
 			}
 		}
