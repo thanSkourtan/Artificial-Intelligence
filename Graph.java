@@ -12,11 +12,9 @@ import java.util.ArrayList;
  * coordinates, x and y.
  * The code can be applied ONLY to square, 2-dimensional maps
  * 
- * @author thanos dimitris
+ * @author thanskourtan
  */
 public abstract class Graph{
-	protected static int DIAGONALCOST = 2;
-	protected static int NORMALCOST = 1;
 	protected int adjMatrix[][];
 	protected int noOfSideVertices; //for example if the map is 5x5 then the noOfSideVertices is 5
 	protected int initialPosition[] = new int[2];
@@ -24,6 +22,7 @@ public abstract class Graph{
 	protected List<int[]> visitedList = new ArrayList<>();	
 	/**Caches the parent vertex of each visited vertex.*/
 	protected int[][][] parent;
+	protected int[][] distances;
 	
 	/**
 	 * Every subclass must provide an implementation of the algorithm the agent will use to move across 
@@ -212,6 +211,13 @@ public abstract class Graph{
 					break;
 				}
 			}
+		}
+		System.out.println();
+		System.out.println();
+		if(this instanceof Bfs || this instanceof Astar){
+			System.out.println("The total cost of the path is " + distances[finalPosition[0]][finalPosition[1]]);
+		}else{
+			System.out.println("The total cost of the path is " + path.size());
 		}
 		System.out.println();
 	}

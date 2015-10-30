@@ -71,9 +71,10 @@ public class Test {
 			Random rand = new Random();
 			int noOfSquares = graph.adjMatrix.length;
 			//set obstacles
-			
-			for(int i = 0; i< (noOfSquares*noOfSquares)/4;i++){
-				graph.addObstacle(rand.nextInt(noOfSquares),rand.nextInt(noOfSquares));
+			if(!args[args.length-1].equals("ObstaclesOff")){
+				for(int i = 0; i< (noOfSquares*noOfSquares)/4;i++){
+					graph.addObstacle(rand.nextInt(noOfSquares),rand.nextInt(noOfSquares));
+				}
 			}
 			int num1=0;
 			int num2=1;

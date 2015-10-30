@@ -7,7 +7,7 @@ import java.util.PriorityQueue;
  * path into the labyrinth. 
  * For an overview of the algorithm, see http://www.redblobgames.com/pathfinding/a-star/introduction.html
  * 
- * @author thanos - dimitris
+ * @author thanskourtan
  */
 public class Astar extends Bfs{
 	Sorting sorting =new Sorting();
@@ -65,16 +65,6 @@ public class Astar extends Bfs{
 			}
 		}
 		return false;
-	}
-	
-	/**
-	 * Heuristic function which calculates the Manhattan distance of two vertices.
-	 * @param a The first vertex represented by an array of integers.
-	 * @param b The second vertex represented by an array of integers.
-	 * @return The sum of the absolute values of the vertical and horizontal distances of the two vertices.
-	 */
-	public int heuristic(int[] a, int[] b){
-	    return Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]);
 	}
 	
 	/**

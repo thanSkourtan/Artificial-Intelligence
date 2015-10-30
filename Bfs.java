@@ -10,8 +10,9 @@ import java.util.Arrays;
  * @author thanskourtan
  */
 public class Bfs extends Graph{
+	protected static final int DIAGONALCOST = 2;
+	protected static final int NORMALCOST = 1;
 	protected Queue<int[]> bfsQueue = new LinkedList<>();
-	protected int[][] distances;
 	
 	/**
 	 * Calls the constructor of the superclass passing the number of Side vertices as parameter.
@@ -60,7 +61,11 @@ public class Bfs extends Graph{
 				if(constraints(currentPosition[0] + temp[0],currentPosition[1] + temp[1])){
 					int[] newPosition = new int[]{currentPosition[0] + temp[0],currentPosition[1] + temp[1]};	
 					bfsQueue.add(newPosition);
-					distances[newPosition[0]][newPosition[1]]= distances[currentPosition[0]][currentPosition[1]] + 1;
+					if(heuristic(currentPosition,newPosition)==2){
+						distances[newPosition[0]][newPosition[1]]= distances[currentPosition[0]][currentPosition[1]] + DIAGONALCOST;
+					}else{
+						distances[newPosition[0]][newPosition[1]]= distances[currentPosition[0]][currentPosition[1]] + NORMALCOST ;
+					}
 					visitedList.add(newPosition);
 					parent[newPosition[0]][newPosition[1]] = currentPosition;  //we go down up to the 2nd level only, as newPosition is an array
 				}
@@ -98,5 +103,15 @@ public class Bfs extends Graph{
 		}
 		System.out.println();
 		System.out.println();
+	}
+	
+	/**
+	 * Heuristic function which calculates the Manhattan distance of two vertices.
+	 * @param a The first vertex represented by an array of integers.
+	 * @param b The second vertex represented by an array of integers.
+	 * @return The sum of the absolute values of the vertical and horizontal distances of the two vertices.
+	 */
+	public int heuristic(int[] a, int[] b){
+	    return Math.abs(a[0] - b[0]) + Math.abs(a[1] - b[1]);
 	}
 }
