@@ -3,7 +3,7 @@
  * move through the map from the initial to the final vertex. 
  * For an overview of the algorithm, see Introduction to Algorithms, CLRS, The MIT Press.
  * 
- * @author thanskourtan
+ * @author thanos dimitris
  */
 public class Dfs extends Graph{
 	/**Cache the entry and exit time for each vertex.*/

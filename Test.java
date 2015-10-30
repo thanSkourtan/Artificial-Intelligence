@@ -3,7 +3,7 @@ import java.util.Random;
 /**
  * The Test class is the entry point of the application. 
  * 
- * @author thanskourtan
+ * @author thanos dimitris
  */
 public class Test {
 	

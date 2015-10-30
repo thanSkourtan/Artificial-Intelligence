@@ -7,7 +7,7 @@ import java.util.Arrays;
  * to visualize the selected path into the labyrinth.
  * For an overview of the algorithm, see Introduction to Algorithms, CLRS, The MIT Press.
  * 
- * @author thanskourtan
+ * @author thanos dimitris
  */
 public class Bfs extends Graph{
 	protected static final int DIAGONALCOST = 2;

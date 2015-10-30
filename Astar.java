@@ -7,7 +7,7 @@ import java.util.PriorityQueue;
  * path into the labyrinth. 
  * For an overview of the algorithm, see http://www.redblobgames.com/pathfinding/a-star/introduction.html
  * 
- * @author thanskourtan
+ * @author thanos dimitris
  */
 public class Astar extends Bfs{
 	Sorting sorting =new Sorting();
