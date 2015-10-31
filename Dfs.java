@@ -3,7 +3,7 @@
  * move through the map from the initial to the final vertex. 
  * For an overview of the algorithm, see Introduction to Algorithms, CLRS, The MIT Press.
  * 
- * @author thanos dimitris
+ * @author thanSkourtan
  */
 public class Dfs extends Graph{
 	/**Cache the entry and exit time for each vertex.*/
@@ -75,7 +75,7 @@ public class Dfs extends Graph{
 		System.out.println("The graph with the dfs algorithm's entry/exit times is: ");
 		for(int i = 0; i< time.length;i++){
 			for(int j = 0; j<time[i].length;j++){
-				if(adjMatrix[i][j]==0){           //labyrinth.time[i][j] and labyrinth.adjMatrix[i][j] are the same vertex
+				if(adjMatrix[i][j]==0){           //graph.time[i][j] and graph.adjMatrix[i][j] are the same vertex
 					System.out.print("###     ");
 					continue;
 				}else{

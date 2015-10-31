@@ -12,7 +12,7 @@ import java.util.ArrayList;
  * coordinates, x and y.
  * The code can be applied ONLY to square, 2-dimensional maps
  * 
- * @author thanos dimitris
+ * @author thanSkourtan
  */
 public abstract class Graph{
 	protected int adjMatrix[][];

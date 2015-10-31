@@ -4,10 +4,10 @@ import java.util.Arrays;
 
 /**
  * A class implementing the breadth first search algorithm and also providing a method
- * to visualize the selected path into the labyrinth.
+ * to visualize the selected path into the graph.
  * For an overview of the algorithm, see Introduction to Algorithms, CLRS, The MIT Press.
  * 
- * @author thanos dimitris
+ * @author thanSkourtan
  */
 public class Bfs extends Graph{
 	protected static final int DIAGONALCOST = 2;
@@ -29,8 +29,8 @@ public class Bfs extends Graph{
 	}
 	
 	/**
-	 * Overrides the setInitialPositionMethod in order to initialize the parent of the 
-	 * starting vertex to null.
+	 * Overrides the setInitialPositionMethod in order to initialize the distances array
+	 * at the initial Position to 0.
 	 */
 	@Override
 	public void setInitialPosition(int x, int y) {

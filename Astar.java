@@ -4,10 +4,10 @@ import java.util.PriorityQueue;
 
 /**
  * A class implementing the A* algorithm and also providing a method to visualize the selected
- * path into the labyrinth. 
+ * path into the graph. 
  * For an overview of the algorithm, see http://www.redblobgames.com/pathfinding/a-star/introduction.html
  * 
- * @author thanos dimitris
+ * @author thanSkourtan
  */
 public class Astar extends Bfs{
 	Sorting sorting =new Sorting();
