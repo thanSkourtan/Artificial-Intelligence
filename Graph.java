@@ -217,7 +217,7 @@ public abstract class Graph{
 		if(this instanceof Bfs || this instanceof Astar){
 			System.out.println("The total cost of the path is " + distances[finalPosition[0]][finalPosition[1]]);
 		}else{
-			System.out.println("The total cost of the path is " + path.size());
+			System.out.println("The total cost of the path is " + (path.size()-2));
 		}
 		System.out.println();
 	}
